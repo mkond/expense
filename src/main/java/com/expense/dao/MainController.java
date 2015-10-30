@@ -14,6 +14,9 @@ public class MainController {
 	
 	
 	private String LOGINPAGE ="login";
+	private String USERPAGE = "user";
+	private String ADMINPAGE ="admin";
+	private String ACCESSDENIEDPAGE = "accessDenied";
 	
 	@RequestMapping(value = {"/", "/login"}, method = RequestMethod.GET)
 	public ModelAndView login(@RequestParam(value="error", required=false) String error, HttpSession session, HttpServletRequest request) {
@@ -23,6 +26,18 @@ public class MainController {
 			model.addObject("error", "Wrong login or password");
 		
 		model.setViewName(LOGINPAGE);
+		return model;
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/user")
+	public ModelAndView userPage(){
+		ModelAndView model = new ModelAndView(USERPAGE);
+		return model;
+	}
+	
+	@RequestMapping(method=RequestMethod.GET, value="/admin")
+	public ModelAndView adminPage(){
+		ModelAndView model = new ModelAndView(ADMINPAGE);
 		return model;
 	}
 

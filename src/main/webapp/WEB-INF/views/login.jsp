@@ -13,8 +13,8 @@
 	<c:out value="${error}"/>
 </c:if>
 <form action="<%=request.getContextPath()%>/j_spring_security_check" method="POST" name="form_login" class="form_login">
-	<input type="text" name="user_login" placeholder="login"/><br/>
-	<input type="password" name="password_login"placeholder="password"/><br/>
+	<input type="text" name="user_login" placeholder="login" required="required"/><br/>
+	<input type="password" name="password_login"placeholder="password" required="required"/><br/>
 	<input type="submit" name="submit" value="submit"/><br/>
 	<span>remember me </span><input type="checkbox" name="main_remember_me" class="check_remember_me">
 </form>

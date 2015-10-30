@@ -7,6 +7,7 @@
 <title>admin page</title>
 </head>
 <body>
-
+<p>Welcome to admin page!</p>
+<p><a href="j_spring_security_logout">Logout</a></p>
 </body>
 </html>
