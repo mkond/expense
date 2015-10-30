@@ -29,3 +29,7 @@ input:last-child {
 form span{
 	color: gray;
 }
+
+.errorUP{
+	color: red;
+}
