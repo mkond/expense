@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -7,7 +8,17 @@
 <title>user page</title>
 </head>
 <body>
-<p>Welcome to user page!</p>
-<p><a href="j_spring_security_logout">Logout</a></p>
+	<p><a href="j_spring_security_logout">Logout</a></p>
+
+<hr>
+
+	<c:forEach items="${expenselist }" var="user" >
+		${user.getExpCategory().getName()}
+		${user.getExpenseUser().getName() }
+		${user.getAmount() }
+		${user.getDate() }
+		${user.getTitle() }<br>
+	</c:forEach>
+
 </body>
 </html>
