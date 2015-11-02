@@ -1,4 +1,4 @@
-package com.expense.controllers;
+package com.expense.dao;
 
 import java.text.DateFormat;
 import java.util.Date;

@@ -1,4 +1,4 @@
-package com.expense.controllers;
+package com.expense.dao;
 
 import java.util.List;
 
@@ -16,7 +16,6 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.expense.dao.ExpenseDAOImpl;
 import com.expense.objects.Expense;
 
 
