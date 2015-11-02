@@ -9,6 +9,7 @@
 	<link href='https://fonts.googleapis.com/css?family=Lato:100italic,300' rel='stylesheet' type='text/css'>
 </head>
 <body>
+${test }
 	<span class="errorUP">
 		<c:if test="${not empty error}" >
 			<c:out value="${error}"/>

@@ -38,7 +38,7 @@ public class MainController {
 		ModelAndView model = new ModelAndView();
 		
 		
-//		model.addObject("test", "test ok!");
+		model.addObject("test", "test ok!");
 
 		
 		
@@ -58,7 +58,7 @@ public class MainController {
 		for(Expense exp1 : list){
 			System.out.println(exp1.getExpCategory().getName()+"."+exp1.getExpenseUser().getName()+"."+exp1.getAmount()+"."+exp1.getDate()+"."+exp1.getTitle());
 		}
-		
+		model.addObject("test", "test ok!");
 		model.addObject("expenselist", list);
 
 		return model;

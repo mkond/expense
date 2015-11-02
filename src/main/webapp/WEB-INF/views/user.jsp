@@ -9,7 +9,7 @@
 </head>
 <body>
 	<p><a href="j_spring_security_logout">Logout</a></p>
-
+${test }
 <hr>
 
 	<c:forEach items="${expenselist }" var="user" >
