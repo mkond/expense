@@ -18,7 +18,7 @@ import com.expense.objects.ExpenseUser;
 
 @Component("expenseDAOImpl")
 public class ExpenseDAOImpl implements ExpenseDAO {
-	private String ssss;
+	private String sss12s;
 	private NamedParameterJdbcTemplate jdbcTempl;
 	private DataSource dataSource;
 	
