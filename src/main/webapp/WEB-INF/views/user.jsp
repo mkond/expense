@@ -5,20 +5,35 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href=<%=request.getContextPath()+"/resources/css/user.css" %> rel="stylesheet">
 <title>user page</title>
 </head>
 <body>
 	<p><a href="j_spring_security_logout">Logout</a></p>
-${test }
-<hr>
 
-	<c:forEach items="${expenselist }" var="user" >
-		${user.getExpCategory().getName()}
-		${user.getExpenseUser().getName() }
-		${user.getAmount() }
-		${user.getDate() }
-		${user.getTitle() }<br>
-	</c:forEach>
+<hr>
+	<form method="POST" action="<%=request.getContextPath()%>/user/addexpense" class="addNewExpense">
+		<input type="submit" name="sublitNewExpense" value="Нові витрати">
+	</form>
+	<table>
+		<tr>
+		    <td>Категорія</td>
+		    <td>Платив</td>
+		    <td>Сумма</td>
+		    <td>Дата</td>
+	    	<td>Опис</td>
+	 	</tr>
+	  <c:forEach items="${expenselist }" var="user" >
+	  		<tr>
+				<td>${user.getExpCategory().getName()}</td>
+			    <td>${user.getExpenseUser().getName()}</td>
+			    <td>${user.getAmount()}</td>
+			    <td>${user.getDate()}</td>
+		    	<td>${user.getTitle()}</td>
+	    	</tr>
+	  </c:forEach>
+	</table>
+
 
 </body>
 </html>

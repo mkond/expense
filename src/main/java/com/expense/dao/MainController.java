@@ -69,6 +69,16 @@ public class MainController {
 		ModelAndView model = new ModelAndView(ADMINPAGE);
 		return model;
 	}
+	
+	@RequestMapping(value="/user/addexpense", method=RequestMethod.POST)
+	public ModelAndView addNewExpense(){
+		ModelAndView model = new ModelAndView();
+		List<Expense> list = expenseDAOImpl.getExpenseList();
+		model.addObject("expenselist", list);
+		model.setViewName(USERPAGE);
+		System.out.println("/addexpense");
+		return model;
+	}
 
 
 
