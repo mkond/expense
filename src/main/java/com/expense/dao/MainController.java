@@ -130,8 +130,8 @@ public class MainController {
 		UserDetails userDetails =
 				 (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
-		String user = userDetails.getUsername();	// визначення id	
-		int userID = expenseUserDAOImpl.getUserId(user);// платника
+		String user = userDetails.getUsername();	
+		int userID = expenseUserDAOImpl.getUserId(user);
 		
 		String[] parts = date.split("/");
 		String dateToDB = String.format("%s-%s-%s", parts[2],parts[0],parts[1]);

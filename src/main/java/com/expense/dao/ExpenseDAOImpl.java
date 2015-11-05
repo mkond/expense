@@ -24,9 +24,9 @@ public class ExpenseDAOImpl implements ExpenseDAO {
 	private DataSource dataSource;
 	
 	@Autowired
-	public void setDataSource(DataSource dataSourceLocal){
-		this.jdbcTempl = new NamedParameterJdbcTemplate(dataSourceLocal);
-		this.dataSource = dataSourceLocal;
+	public void setDataSource(DataSource dataSource){
+		this.jdbcTempl = new NamedParameterJdbcTemplate(dataSource);
+		this.dataSource = dataSource;
 	}
 	
 	
