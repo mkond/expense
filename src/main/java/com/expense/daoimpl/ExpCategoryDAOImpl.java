@@ -23,6 +23,8 @@ public class ExpCategoryDAOImpl implements ExpCategoryDAO {
 	public void setDataSource(DataSource dataSource){
 		this.jdbcTempl = new NamedParameterJdbcTemplate(dataSource);
 		this.dataSource = dataSource;
+		
+		
 	}
 
 	@Override
