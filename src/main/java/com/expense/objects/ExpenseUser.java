@@ -5,6 +5,8 @@ public class ExpenseUser {
 	private int id;
 	private String name;
 	private String email;
+	private String firstname;
+	private String lastname;
 	
 	public int getId() {
 		return id;
@@ -27,6 +29,22 @@ public class ExpenseUser {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	public String getFirstname() {
+		return firstname;
+	}
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+	
+	public String getLastname() {
+		return lastname;
+	}
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
+	
+	
 	
 	
 

@@ -11,10 +11,9 @@
 <body>
 	<p><a href="j_spring_security_logout">Logout</a></p>
 
-<hr>
-	<form method="POST" action="<%=request.getContextPath()%>/user/addexpense" class="addNewExpense">
-		<input type="submit" name="sublitNewExpense" value="Нові витрати">
-	</form>
+
+	
+	<a href="<%=request.getContextPath()%>/user/addexpense">Нові витрати</a>
 	<table>
 		<tr>
 		    <td>Категорія</td>

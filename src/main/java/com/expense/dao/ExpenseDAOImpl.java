@@ -8,6 +8,7 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 
@@ -23,14 +24,12 @@ public class ExpenseDAOImpl implements ExpenseDAO {
 	private DataSource dataSource;
 	
 	@Autowired
-	public void setDataSource(DataSource dataSource){
-		this.jdbcTempl = new NamedParameterJdbcTemplate(dataSource);
-		this.dataSource = dataSource;
+	public void setDataSource(DataSource dataSourceLocal){
+		this.jdbcTempl = new NamedParameterJdbcTemplate(dataSourceLocal);
+		this.dataSource = dataSourceLocal;
 	}
 	
-	public String show(){
-		return "hello!";
-	}
+	
 	
 	@Override
 	public List<Expense> getExpenseList() {
@@ -43,10 +42,34 @@ public class ExpenseDAOImpl implements ExpenseDAO {
 					" FROM expenselist as E"+
 					" left join ExpUser as EU on E.WhoSpentId=EU.id"+
 					" left join ExpCategory as EC on E.expCategoryId = EC.id";
-		return jdbcTempl.query(sql, new MP3RowMaper());
+		return jdbcTempl.query(sql, new ExpenseRowMaper());
 	}
 	
-	private static final class MP3RowMaper implements RowMapper<Expense>{
+	@Override
+	public void insertExpenseToExpenseList(int categoryID, int userID, int amount, String date, String title) {
+		String sql = "		INSERT INTO expenselist (ExpCategoryId, "
+				+ "									WhoSpentId, "
+				+ "									Amount, "
+				+ "									DateSpent, "
+				+ "									Title) "
+				+ "			VALUES (:categoryID,"
+				+ "					:userID,"
+				+ "					:amount,"
+				+ "					:date,"
+				+ "					:title)";
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("categoryID", categoryID);
+		params.addValue("userID", userID);
+		params.addValue("amount", amount);
+		params.addValue("date", date);
+		params.addValue("title", title);
+		
+		jdbcTempl.update(sql, params);
+	}
+	
+	
+	
+	private static final class ExpenseRowMaper implements RowMapper<Expense>{
 
 		@Override
 		public Expense mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -68,5 +91,9 @@ public class ExpenseDAOImpl implements ExpenseDAO {
 		}
 		
 	}
+
+
+
+
 
 }
