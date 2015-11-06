@@ -80,9 +80,7 @@ public class MainController {
 		
 		
 		List<Expense> list = expenseDAOImpl.getExpenseList();
-//		for(Expense exp1 : list){
-//			System.out.println(exp1.getExpCategory().getName()+"."+exp1.getExpenseUser().getName()+"."+exp1.getAmount()+"."+exp1.getDate()+"."+exp1.getTitle());
-//		}
+
 		
 		UserDetails userDetails =
 				 (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
