@@ -54,6 +54,14 @@ public class ExpenseUserDAOImpl implements ExpenseUserDAO {
 		return jdbcTempl.queryForObject(sql, param, Integer.class);
 	}
 	
+	@Override
+	public ExpenseUser getUserById(int id) {
+		String sql = "Select * from ExpUser where id=:id";
+			MapSqlParameterSource param = new MapSqlParameterSource();
+			param.addValue("id", id);
+		return jdbcTempl.queryForObject(sql, param, new ExpenseUserRowMaper());
+	}
+	
 	
 	
 	private static final class ExpenseUserRowMaper implements RowMapper<ExpenseUser>{
@@ -72,8 +80,6 @@ public class ExpenseUserDAOImpl implements ExpenseUserDAO {
 
 		
 	}
-
-
 
 	
 

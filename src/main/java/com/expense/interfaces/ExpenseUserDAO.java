@@ -13,5 +13,7 @@ public interface ExpenseUserDAO {
 	public List<ExpenseUser> getExpenseUserListWithoutThisUser(UserDetails user);
 	
 	public int getUserId(String username);
+	
+	public ExpenseUser getUserById(int id);
 
 }

@@ -32,6 +32,9 @@
 	    	</tr>
 	  </c:forEach>
 	</table>
+	
+	<div class="myExpense"></div>
+	<div class="MonyToMe"></div>
 
 
 </body>

@@ -57,19 +57,11 @@ public class MainController {
 
 	
 	@RequestMapping(value = {"/", "/login"}, method = RequestMethod.GET)
-	public ModelAndView login(@RequestParam(value="error", required=false) String error, HttpSession session, HttpServletRequest request) {
+	public ModelAndView login(@RequestParam(value="error", required=false) ExpenseUser error, HttpSession session, HttpServletRequest request) {
 		ModelAndView model = new ModelAndView();
 		
 		DateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd");
-		Date date1 = new Date();
-		System.out.println(dateFormat1.format(date1)); 
-		
-		model.addObject("test", "test ok!");
-
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");//date
-		Date date = new Date();
-		System.out.println(dateFormat.format(date));
-		
+		Date date1 = new Date();		
 		
 		if(error != null)
 			model.addObject("error", "Wrong login or password");
@@ -88,7 +80,7 @@ public class MainController {
 		for(Expense exp1 : list){
 			System.out.println(exp1.getExpCategory().getName()+"."+exp1.getExpenseUser().getName()+"."+exp1.getAmount()+"."+exp1.getDate()+"."+exp1.getTitle());
 		}
-		model.addObject("test", "test ok!");
+
 		model.addObject("expenselist", list);
 
 		return model;
@@ -126,28 +118,42 @@ public class MainController {
 		
 
 		int sumToPay = 0;
+		int countUsersToPay = checkedUserIds.length+1;
+		String listUsersForTitle = "";
 		
 		UserDetails userDetails =
 				 (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		
 		String user = userDetails.getUsername();	
 		int userID = expenseUserDAOImpl.getUserId(user);
 		
 		String[] parts = date.split("/");
 		String dateToDB = String.format("%s-%s-%s", parts[2],parts[0],parts[1]);
 
-		int countUsersToPay = checkedUserIds.length+1;
+		
 		
 		if(sum % countUsersToPay ==0){
 			sumToPay=sum/countUsersToPay;
 		}else{
 			sumToPay=(sum+(countUsersToPay-1))/countUsersToPay;
 		}
-		expenseDAOImpl.insertExpenseToExpenseList(categoryId, userID, sum, dateToDB, title);		
 		
 		for(int i=0;i<checkedUserIds.length;i++){
-			transactionDAOImpl.inserTransaction(userID, Integer.parseInt(checkedUserIds[i]), sumToPay);
-		}			
+			transactionDAOImpl.insertTransaction(userID, Integer.parseInt(checkedUserIds[i]), sumToPay);
+			ExpenseUser expUser = expenseUserDAOImpl.getUserById(Integer.parseInt(checkedUserIds[i]));
+			if(i==0){
+				listUsersForTitle = String.format("%s %s,",expUser.getFirstname(), expUser.getLastname());
+				continue;
+			}
+			if(i==checkedUserIds.length-1)
+				listUsersForTitle = String.format("%s %s %s", listUsersForTitle, expUser.getFirstname(), expUser.getLastname());
+			else
+				listUsersForTitle = String.format("%s %s %s,", listUsersForTitle,expUser.getFirstname(), expUser.getLastname());
+				
+		}	
+		title = String.format("%s | %s", listUsersForTitle, title);
+		
+		expenseDAOImpl.insertExpenseToExpenseList(categoryId, userID, sum, dateToDB, title);		
+		
 		return "redirect:/user";
 	}
 

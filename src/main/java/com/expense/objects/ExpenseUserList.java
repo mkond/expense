@@ -4,9 +4,9 @@ import java.util.List;
 
 public class ExpenseUserList {
 	
-	public List<String> listUsersID;
+	public List<ExpenseUser> listUsersID;
 
-	public List<String> getlistUsersID() {
+	public List<ExpenseUser> getlistUsersID() {
 	    return listUsersID;
 	}
 

@@ -1,7 +1,16 @@
 package com.expense.interfaces;
 
+import java.util.List;
+
+import com.expense.objects.UsersTransaction;
+
 public interface TransactionDAO {
 	
-	public void inserTransaction(int userIDWhoPay, int userIDForExpense, int amount);
+	public void insertTransaction(int userIDWhoPay, int userIDForExpense, int amount);
+	
+
+	
+	
+	
 
 }

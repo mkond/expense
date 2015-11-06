@@ -19,7 +19,7 @@ import com.expense.objects.ExpenseUser;
 
 @Component("expenseDAOImpl")
 public class ExpenseDAOImpl implements ExpenseDAO {
-	private String sss12s;
+	private ExpenseUser sss12s;
 	private NamedParameterJdbcTemplate jdbcTempl;
 	private DataSource dataSource;
 	
