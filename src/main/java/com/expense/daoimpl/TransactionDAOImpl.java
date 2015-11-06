@@ -47,41 +47,47 @@ public class TransactionDAOImpl implements TransactionDAO {
 
 	}
 
-//	@Override
-//	public List<UsersTransaction> getUserListWhoNeedPayToMe(String user) {
-//		String sql="select c.FromId, c.ToId, sum(c.Summ) from ((SELECT U1.name as FromId, U2.name as ToId, sum(T.Amount) as Summ "
-//					+" FROM Transaction as T "
-//					+" left join expense.ExpUser as U1 on T.FromId = U1.id "
-//					+" left join ExpUser as U2 on T.ToId = U2.id "
-//					+" group by U1.name, U2.name)  "
-//					
-//					+" union all  "
-//					+" (SELECT U2.name as FromId, U1.name as ToId, -sum(T.Amount) as Summ "
-//					+" FROM Transaction as T "
-//					+" left join expense.ExpUser as U1 on T.FromId = U1.id "
-//					+" left join ExpUser as U2 on T.ToId = U2.id "
-//					+" group by U2.name, U1.name )) as c "
-//					+" where FromId=:user "
-//					+" group by c.FromId, c.ToId "
-//					
-//					+" having sum(c.Summ) > 0";
-//		
-//		MapSqlParameterSource param = new MapSqlParameterSource();
-//		param.addValue("user", user);
-//		return null;
-////	}
-//	
-//	private static final class TransactionRomMapper implements RowMapper<UsersTransaction>{
-//
-//		@Override
-//		public UsersTransaction mapRow(ResultSet rs, int arg1) throws SQLException {
-//			UsersTransaction userTR = new UsersTransaction();
-//			String expenseUser = new String();
-//			
-//			return null;
-//		}
+	@Override
+	public List<UsersTransaction> getUserListWhoNeedToPayMe(String userME) {
 		
-//	}
+		String sql="select c.FromId as FromId, c.ToId as ToId, sum(c.Summ) as sum from ((SELECT U1.name as FromId, U2.name as ToId, sum(T.Amount) as Summ "
+				+" FROM Transaction as T "
+				+" left join expense.ExpUser as U1 on T.FromId = U1.id "
+				+" left join ExpUser as U2 on T.ToId = U2.id "
+				+" group by U1.name, U2.name)  "
+				
+				+" union all  "
+				+" (SELECT U2.name as FromId, U1.name as ToId, -sum(T.Amount) as Summ "
+				+" FROM Transaction as T "
+				+" left join expense.ExpUser as U1 on T.FromId = U1.id "
+				+" left join ExpUser as U2 on T.ToId = U2.id "
+				+" group by U2.name, U1.name )) as c "
+				+" where FromId='drek' "
+				+" group by c.FromId, c.ToId "
+				
+				+" having sum(c.Summ) > 0";
+	
+	MapSqlParameterSource param = new MapSqlParameterSource();
+	param.addValue("user", userME);
+	return jdbcTempl.query(sql,  param ,new TransactionRomMapper());
+	}
+
+	
+
+	
+	private static final class TransactionRomMapper implements RowMapper<UsersTransaction>{
+
+		@Override
+		public UsersTransaction mapRow(ResultSet rs, int arg1) throws SQLException {
+			UsersTransaction userTR = new UsersTransaction();
+			userTR.setFromUser(rs.getString("FromId"));
+			userTR.setToUser(rs.getString("ToId"));
+			userTR.setAmount(rs.getInt("sum"));
+			
+			return userTR;
+		}
+		
+	}
 
 
 

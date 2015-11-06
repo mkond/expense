@@ -2,20 +2,20 @@ package com.expense.objects;
 
 public class UsersTransaction {
 	
-	private ExpenseUser fromUser;
-	private ExpenseUser toUser;
+	private String fromUser;
+	private String toUser;
 	private int amount;
 	
-	public ExpenseUser getFromUser() {
+	public String getFromUser() {
 		return fromUser;
 	}
-	public void setFromUser(ExpenseUser fromUser) {
+	public void setFromUser(String fromUser) {
 		this.fromUser = fromUser;
 	}
-	public ExpenseUser getToUser() {
+	public String getToUser() {
 		return toUser;
 	}
-	public void setToUser(ExpenseUser toUser) {
+	public void setToUser(String toUser) {
 		this.toUser = toUser;
 	}
 	public int getAmount() {

@@ -30,6 +30,7 @@ import com.expense.daoimpl.TransactionDAOImpl;
 import com.expense.objects.ExpCategory;
 import com.expense.objects.Expense;
 import com.expense.objects.ExpenseUser;
+import com.expense.objects.UsersTransaction;
 
 
 
@@ -54,6 +55,8 @@ public class MainController {
 	
 	@Autowired
 	private TransactionDAOImpl transactionDAOImpl;
+	
+
 
 	
 	@RequestMapping(value = {"/", "/login"}, method = RequestMethod.GET)
@@ -77,9 +80,21 @@ public class MainController {
 		
 		
 		List<Expense> list = expenseDAOImpl.getExpenseList();
-		for(Expense exp1 : list){
-			System.out.println(exp1.getExpCategory().getName()+"."+exp1.getExpenseUser().getName()+"."+exp1.getAmount()+"."+exp1.getDate()+"."+exp1.getTitle());
+//		for(Expense exp1 : list){
+//			System.out.println(exp1.getExpCategory().getName()+"."+exp1.getExpenseUser().getName()+"."+exp1.getAmount()+"."+exp1.getDate()+"."+exp1.getTitle());
+//		}
+		
+		UserDetails userDetails =
+				 (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String user = userDetails.getUsername();
+		System.out.println(user);
+		List<UsersTransaction> usersTransactionsToPayMe = transactionDAOImpl.getUserListWhoNeedToPayMe(user);
+
+		
+		for(UsersTransaction userT: usersTransactionsToPayMe){
+			System.out.println(userT.getFromUser()+" "+userT.getToUser()+" :"+userT.getAmount());
 		}
+		model.addObject("usersTransactionsToPayMe" ,usersTransactionsToPayMe);
 
 		model.addObject("expenselist", list);
 
@@ -120,6 +135,7 @@ public class MainController {
 		int sumToPay = 0;
 		int countUsersToPay = checkedUserIds.length+1;
 		String listUsersForTitle = "";
+		
 		
 		UserDetails userDetails =
 				 (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();

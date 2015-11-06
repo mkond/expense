@@ -34,7 +34,20 @@
 	</table>
 	
 	<div class="myExpense"></div>
-	<div class="MonyToMe"></div>
+	<div class="MonyToMe">
+		<table>
+			<tr>
+			    <td>Должнік</td>
+			    <td>Сумма</td>
+	 		</tr>
+	 	<c:forEach items="${usersTransactionsToPayMe }" var="usersTransaction" >
+	  		<tr>
+				<td>${usersTransaction.getToUser()}</td>
+			    <td>${usersTransaction.getAmount()}</td>
+	    	</tr>
+	  </c:forEach>
+		</table>
+	</div>
 
 
 </body>
