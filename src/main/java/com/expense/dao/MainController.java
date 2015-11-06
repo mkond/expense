@@ -165,6 +165,7 @@ public class MainController {
 				
 		}	
 		title = String.format("%s | %s", listUsersForTitle, title);
+		System.out.println("title - "+title);
 		
 		expenseDAOImpl.insertExpenseToExpenseList(categoryId, userID, sum, dateToDB, title);		
 		
