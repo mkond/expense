@@ -49,8 +49,7 @@ public class TransactionDAOImpl implements TransactionDAO {
 
 	@Override
 	public List<UsersTransaction> getUserListWhoNeedToPayMe(String userME) {
-		
-		String sql="select c.FromId as FromId, c.ToId as ToId, sum(c.Summ) as sum from ((SELECT U1.name as FromId, U2.name as ToId, sum(T.Amount) as Summ "
+		String sql="select  c.FromId as FromId,c.ToId as ToId, sum(c.Summ) as sum from  ((SELECT U1.name as FromId, U2.name as ToId, sum(T.Amount) as Summ "
 				+" FROM Transaction as T "
 				+" left join expense.ExpUser as U1 on T.FromId = U1.id "
 				+" left join ExpUser as U2 on T.ToId = U2.id "
@@ -62,14 +61,38 @@ public class TransactionDAOImpl implements TransactionDAO {
 				+" left join expense.ExpUser as U1 on T.FromId = U1.id "
 				+" left join ExpUser as U2 on T.ToId = U2.id "
 				+" group by U2.name, U1.name )) as c "
-				+" where FromId='drek' "
+				+" where FromId=:userME "
 				+" group by c.FromId, c.ToId "
 				
 				+" having sum(c.Summ) > 0";
 	
 	MapSqlParameterSource param = new MapSqlParameterSource();
-	param.addValue("user", userME);
-	return jdbcTempl.query(sql,  param ,new TransactionRomMapper());
+	param.addValue("userME", userME);
+	return jdbcTempl.query(sql , param ,new TransactionRomMapper());
+	}
+	
+	@Override
+	public List<UsersTransaction> getUsersListWhomINeedToPay(String me) {
+		String sql="select  c.ToId as FromId,c.FromId as ToId, sum(c.Summ) as sum from  ((SELECT U1.name as FromId, U2.name as ToId, sum(T.Amount) as Summ "
+				+" FROM Transaction as T "
+				+" left join expense.ExpUser as U1 on T.FromId = U1.id "
+				+" left join ExpUser as U2 on T.ToId = U2.id "
+				+" group by U1.name, U2.name)  "
+				
+				+" union all  "
+				+" (SELECT U2.name as FromId, U1.name as ToId, -sum(T.Amount) as Summ "
+				+" FROM Transaction as T "
+				+" left join expense.ExpUser as U1 on T.FromId = U1.id "
+				+" left join ExpUser as U2 on T.ToId = U2.id "
+				+" group by U2.name, U1.name )) as c "
+				+" where ToId=:me "
+				+" group by c.FromId, c.ToId "
+				
+				+" having sum(c.Summ) > 0";
+	
+	MapSqlParameterSource param = new MapSqlParameterSource();
+	param.addValue("me", me);
+	return jdbcTempl.query(sql , param ,new TransactionRomMapper());
 	}
 
 	
@@ -88,7 +111,5 @@ public class TransactionDAOImpl implements TransactionDAO {
 		}
 		
 	}
-
-
 
 }

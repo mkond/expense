@@ -10,6 +10,8 @@ public interface TransactionDAO {
 	
 	public List<UsersTransaction> getUserListWhoNeedToPayMe(String userME);
 	
+	public List<UsersTransaction> getUsersListWhomINeedToPay(String me);
+	
 
 	
 	

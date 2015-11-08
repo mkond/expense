@@ -60,7 +60,7 @@ public class MainController {
 
 	
 	@RequestMapping(value = {"/", "/login"}, method = RequestMethod.GET)
-	public ModelAndView login(@RequestParam(value="error", required=false) ExpenseUser error, HttpSession session, HttpServletRequest request) {
+	public ModelAndView login(@RequestParam(value="error", required=false) String error, HttpSession session, HttpServletRequest request) {
 		ModelAndView model = new ModelAndView();
 		
 		DateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd");
@@ -77,24 +77,36 @@ public class MainController {
 	public ModelAndView userPage(){
 		ModelAndView model = new ModelAndView(USERPAGE);
 		
-		
+		System.out.println("/user");
 		
 		List<Expense> list = expenseDAOImpl.getExpenseList();
 
 		
 		UserDetails userDetails =
 				 (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String user = userDetails.getUsername();
-		System.out.println(user);
+		String user = userDetails.getUsername().toString();
+		
+		
+		System.out.println("Должні мені. Username: "+user);
 		List<UsersTransaction> usersTransactionsToPayMe = transactionDAOImpl.getUserListWhoNeedToPayMe(user);
-
+		System.out.println(usersTransactionsToPayMe);
 		
 		for(UsersTransaction userT: usersTransactionsToPayMe){
 			System.out.println(userT.getFromUser()+" "+userT.getToUser()+" :"+userT.getAmount());
 		}
 		model.addObject("usersTransactionsToPayMe" ,usersTransactionsToPayMe);
-
+		
+		System.out.println("Я должен");
+		List<UsersTransaction> usersTransactionsINeedPay = transactionDAOImpl.getUsersListWhomINeedToPay(user);
+		model.addObject("usersTransactionsINeedPay" ,usersTransactionsINeedPay);
+		for(UsersTransaction userI: usersTransactionsINeedPay){
+			System.out.println(userI.getFromUser()+" "+userI.getToUser()+" :"+userI.getAmount());
+		}
+		
+		
 		model.addObject("expenselist", list);
+		
+
 
 		return model;
 	}

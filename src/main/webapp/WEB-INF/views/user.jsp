@@ -9,45 +9,55 @@
 <title>user page</title>
 </head>
 <body>
-	<p><a href="j_spring_security_logout">Logout</a></p>
 
-
-	
-	<a href="<%=request.getContextPath()%>/user/addexpense">Нові витрати</a>
-	<table>
-		<tr>
-		    <td>Категорія</td>
-		    <td>Платив</td>
-		    <td>Сумма</td>
-		    <td>Дата</td>
-	    	<td>Опис</td>
-	 	</tr>
-	  <c:forEach items="${expenselist }" var="user" >
-	  		<tr>
-				<td>${user.getExpCategory().getName()}</td>
-			    <td>${user.getExpenseUser().getName()}</td>
-			    <td>${user.getAmount()}</td>
-			    <td>${user.getDate()}</td>
-		    	<td>${user.getTitle()}</td>
-	    	</tr>
-	  </c:forEach>
-	</table>
-	
-	<div class="myExpense"></div>
-	<div class="MonyToMe">
-		<table>
-			<tr>
-			    <td>Должнік</td>
-			    <td>Сумма</td>
-	 		</tr>
-	 	<c:forEach items="${usersTransactionsToPayMe }" var="usersTransaction" >
-	  		<tr>
-				<td>${usersTransaction.getToUser()}</td>
-			    <td>${usersTransaction.getAmount()}</td>
-	    	</tr>
-	  </c:forEach>
-		</table>
+	<div class="menu">
+		<a href="<%=request.getContextPath()%>/user">Головна</a>
+		<a href="<%=request.getContextPath()%>/user/addexpense">Нові витрати</a>
+		<a href="j_spring_security_logout">Вихід</a>
 	</div>
+
+
+
+	
+
+	<div class="ExpenseList">
+		<div>
+		    <span>Категорія</span>
+		    <span>Платив</span>
+		    <span>Сумма</span>
+		    <span>Дата</span>
+	    	<span>Опис</span>
+	 	</div>
+	  <c:forEach items="${expenselist }" var="user" >
+	  		<div>
+				<span>${user.getExpCategory().getName()}</span>
+			    <span>${user.getExpenseUser().getName()}</span>
+			    <span>${user.getAmount()}</span>
+			    <span>${user.getDate()}</span>
+		    	<span>${user.getTitle()}</span>
+	    	</div>
+	  </c:forEach>
+	</div>
+
+		
+		<div class="MoneyExpenseList">
+			<div class="INeedToPay">
+				<span class="UserName">Кому я винен</span><span class="UserAmount">Сумма</span>
+				<c:forEach items="${usersTransactionsINeedPay }" var="INeedToPay" >
+	  				<div>
+	  					<span class="UserName">${INeedToPay.getToUser()}</span><span class="UserAmount">${INeedToPay.getAmount()}</span>    
+	  				</div>	
+	  			</c:forEach>
+			</div>
+			<div class="WhoNeedToPayMe">
+				<span class="UserName">Хто мені винен</span><span class="UserAmount">Сумма</span>
+				<c:forEach items="${usersTransactionsToPayMe }" var="usersTransaction" >
+	  				<div>
+	  					<span class="UserName">${usersTransaction.getToUser()}</span><span class="UserAmount">${usersTransaction.getAmount()}</span>  
+	  				</div>  	
+	  			</c:forEach>
+			</div>
+		</div>
 
 
 </body>
