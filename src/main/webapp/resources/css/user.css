@@ -9,3 +9,47 @@
 	width: 300px;
 	float: right;
 }
+
+.ExpenseList span{
+	
+	display: inline-block;
+	height: auto;
+	vertical-align: top;
+}
+
+.ExpenseList span:FIRST-CHILD{
+	display: inline-block;
+  	width: 100px;
+}
+.ExpenseList span:nth-child(2) {
+	width: 65px;
+}
+.ExpenseList span:nth-child(3) {
+	width: 65px;
+}
+.ExpenseList span:nth-child(4) {
+	width: 90px;
+}
+
+.ExpenseList span:nth-child(5) {
+	width: 450px;
+}
+
+.ExpenseList div{
+	border: 1px solid black;
+}
+
+.MoneyExpenseList div{
+	border: 1px solid black;
+}
+
+.MoneyExpenseList span{
+	display: inline-block;
+}
+.ListToPay span:FIRST-CHILD{
+	width: 150px;
+}
+
+.sumToReturn{
+	width: 50px;
+}

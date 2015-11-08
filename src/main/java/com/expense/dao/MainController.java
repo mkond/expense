@@ -27,9 +27,11 @@ import org.springframework.web.servlet.ModelAndView;
 import com.expense.daoimpl.ExpCategoryDAOImpl;
 import com.expense.daoimpl.ExpenseUserDAOImpl;
 import com.expense.daoimpl.TransactionDAOImpl;
+
 import com.expense.objects.ExpCategory;
 import com.expense.objects.Expense;
 import com.expense.objects.ExpenseUser;
+
 import com.expense.objects.UsersTransaction;
 
 
@@ -57,7 +59,7 @@ public class MainController {
 	private TransactionDAOImpl transactionDAOImpl;
 	
 
-
+	
 	
 	@RequestMapping(value = {"/", "/login"}, method = RequestMethod.GET)
 	public ModelAndView login(@RequestParam(value="error", required=false) String error, HttpSession session, HttpServletRequest request) {
@@ -70,6 +72,9 @@ public class MainController {
 			model.addObject("error", "Wrong login or password");
 		
 		model.setViewName(LOGINPAGE);
+		
+
+		
 		return model;
 	}
 	
@@ -83,11 +88,14 @@ public class MainController {
 		List<Expense> list = expenseDAOImpl.getExpenseList();
 		List<UsersTransaction> usersTransactionsToPayMe = transactionDAOImpl.getUserListWhoNeedToPayMe(user);	
 		List<UsersTransaction> usersTransactionsINeedPay = transactionDAOImpl.getUsersListWhomINeedToPay(user);
+		List<ExpenseUser> expenseUserListWithoutThis = expenseUserDAOImpl.getExpenseUserListWithoutThisUser(userDetails);
+		
 		
 		ModelAndView model = new ModelAndView(USERPAGE);
 		model.addObject("usersTransactionsToPayMe" ,usersTransactionsToPayMe);		
 		model.addObject("usersTransactionsINeedPay" ,usersTransactionsINeedPay);	
 		model.addObject("expenselist", list);
+		model.addObject("expenseUserListWithoutThis", expenseUserListWithoutThis);
 		return model;
 	}
 	
@@ -161,6 +169,18 @@ public class MainController {
 		
 		expenseDAOImpl.insertExpenseToExpenseList(categoryId, userID, sum, dateToDB, title);		
 		
+		return "redirect:/user";
+	}
+	
+	@RequestMapping(value="/user/moneyreturn", method=RequestMethod.POST)
+	public String moneyReturn(@RequestParam("returnUser") int FromID, @RequestParam("Sumaaaaa") int sum){
+		System.out.println("money return");
+		System.out.println("userID -"+FromID+", sum="+sum);
+		UserDetails userDetails =
+				 (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String user = userDetails.getUsername();	
+		int ToID = expenseUserDAOImpl.getUserId(user);
+		transactionDAOImpl.insertTransaction(FromID, ToID, sum);
 		return "redirect:/user";
 	}
 

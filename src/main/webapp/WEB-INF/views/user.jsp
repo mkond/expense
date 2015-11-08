@@ -22,38 +22,52 @@
 
 	<div class="ExpenseList">
 		<div>
-		    <span>Категорія</span>
-		    <span>Платив</span>
-		    <span>Сумма</span>
-		    <span>Дата</span>
-	    	<span>Опис</span>
+		    <span class="cat">Категорія</span>
+		    <span class="use">Платив</span>
+		    <span class="sum">Сумма</span>
+		    <span class="dat">Дата</span>
+	    	<span class="tit">Опис</span>
 	 	</div>
 	  <c:forEach items="${expenselist }" var="user" >
 	  		<div>
-				<span>${user.getExpCategory().getName()}</span>
-			    <span>${user.getExpenseUser().getName()}</span>
-			    <span>${user.getAmount()}</span>
-			    <span>${user.getDate()}</span>
-		    	<span>${user.getTitle()}</span>
+				<span class="cat">${user.getExpCategory().getName()}</span>
+			    <span class="use">${user.getExpenseUser().getName()}</span>
+			    <span class="sum">${user.getAmount()}</span>
+			    <span class="dat">${user.getDate()}</span>
+		    	<span class="tit">${user.getTitle()}</span>
 	    	</div>
 	  </c:forEach>
 	</div>
 
 		
 		<div class="MoneyExpenseList">
-			<div class="INeedToPay">
-				<span class="UserName">Кому я винен</span><span class="UserAmount">Сумма</span>
+			<div class="MoneyReturn">
+				<form method="POST" action="<%=request.getContextPath()%>/user/moneyreturn">
+					
+						<select  name="returnUser">
+				    		<option selected="selected" disabled="disabled">Хто повертає</option>
+				    		<c:forEach items="${expenseUserListWithoutThis }" var="userList" >
+				    			<option value="${userList.getId()}">${userList.getFirstname()}</option>
+				    		</c:forEach>				    		
+						</select>
+					
+					<input type="text" name="Sumaaaaa" class="sumToReturn"  placeholder="Сумма" required="required">
+					<input type="submit" value="Повернув мені">
+				</form>
+			</div>
+			<div class="ListToPay">
+				<span class="PayUser">Кому я винен</span><span class="PayAmount">Сумма</span>
 				<c:forEach items="${usersTransactionsINeedPay }" var="INeedToPay" >
 	  				<div>
-	  					<span class="UserName">${INeedToPay.getToUser()}</span><span class="UserAmount">${INeedToPay.getAmount()}</span>    
+	  					<span class="PayUser">${INeedToPay.getToUser()}</span><span class="PayAmount">${INeedToPay.getAmount()} грн</span>    
 	  				</div>	
 	  			</c:forEach>
 			</div>
-			<div class="WhoNeedToPayMe">
-				<span class="UserName">Хто мені винен</span><span class="UserAmount">Сумма</span>
+			<div class="ListToPay">
+				<span>Хто мені винен</span><span class="PayAmount">Сумма</span>
 				<c:forEach items="${usersTransactionsToPayMe }" var="usersTransaction" >
 	  				<div>
-	  					<span class="UserName">${usersTransaction.getToUser()}</span><span class="UserAmount">${usersTransaction.getAmount()}</span>  
+	  					<span class="PayUser">${usersTransaction.getToUser()}</span><span class="PayAmount">${usersTransaction.getAmount()} грн</span>  
 	  				</div>  	
 	  			</c:forEach>
 			</div>
