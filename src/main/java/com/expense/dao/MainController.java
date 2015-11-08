@@ -75,39 +75,19 @@ public class MainController {
 	
 	@RequestMapping(method=RequestMethod.GET, value="/user")
 	public ModelAndView userPage(){
-		ModelAndView model = new ModelAndView(USERPAGE);
-		
-		System.out.println("/user");
-		
-		List<Expense> list = expenseDAOImpl.getExpenseList();
-
-		
+			
 		UserDetails userDetails =
 				 (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String user = userDetails.getUsername().toString();
 		
-		
-		System.out.println("Должні мені. Username: "+user);
-		List<UsersTransaction> usersTransactionsToPayMe = transactionDAOImpl.getUserListWhoNeedToPayMe(user);
-		System.out.println(usersTransactionsToPayMe);
-		
-		for(UsersTransaction userT: usersTransactionsToPayMe){
-			System.out.println(userT.getFromUser()+" "+userT.getToUser()+" :"+userT.getAmount());
-		}
-		model.addObject("usersTransactionsToPayMe" ,usersTransactionsToPayMe);
-		
-		System.out.println("Я должен");
+		List<Expense> list = expenseDAOImpl.getExpenseList();
+		List<UsersTransaction> usersTransactionsToPayMe = transactionDAOImpl.getUserListWhoNeedToPayMe(user);	
 		List<UsersTransaction> usersTransactionsINeedPay = transactionDAOImpl.getUsersListWhomINeedToPay(user);
-		model.addObject("usersTransactionsINeedPay" ,usersTransactionsINeedPay);
-		for(UsersTransaction userI: usersTransactionsINeedPay){
-			System.out.println(userI.getFromUser()+" "+userI.getToUser()+" :"+userI.getAmount());
-		}
 		
-		
+		ModelAndView model = new ModelAndView(USERPAGE);
+		model.addObject("usersTransactionsToPayMe" ,usersTransactionsToPayMe);		
+		model.addObject("usersTransactionsINeedPay" ,usersTransactionsINeedPay);	
 		model.addObject("expenselist", list);
-		
-
-
 		return model;
 	}
 	
