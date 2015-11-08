@@ -1,19 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link href=<%=request.getContextPath()+"/resources/css/user.css" %> rel="stylesheet">
+<link href='https://fonts.googleapis.com/css?family=Lato:100italic,300' rel='stylesheet' type='text/css'>
 <title>user page</title>
+
 </head>
 <body>
 
 	<div class="menu">
-		<a href="<%=request.getContextPath()%>/user">Головна</a>
-		<a href="<%=request.getContextPath()%>/user/addexpense">Нові витрати</a>
-		<a href="j_spring_security_logout">Вихід</a>
+		<a href="<%=request.getContextPath()%>/user"><div>Головна</div></a>
+		<a href="<%=request.getContextPath()%>/user/addexpense"><div>Нові витрати</div></a>
+		<a href="j_spring_security_logout"><div>Вихід</div></a>
 	</div>
 
 
@@ -44,27 +47,27 @@
 			<div class="MoneyReturn">
 				<form method="POST" action="<%=request.getContextPath()%>/user/moneyreturn">
 					
-						<select  name="returnUser">
-				    		<option selected="selected" disabled="disabled">Хто повертає</option>
+						<select required aria-required="true"  name="returnUser" class="returnUser">
+				    		<option value="">Хто повертає</option>
 				    		<c:forEach items="${expenseUserListWithoutThis }" var="userList" >
 				    			<option value="${userList.getId()}">${userList.getFirstname()}</option>
 				    		</c:forEach>				    		
 						</select>
 					
-					<input type="text" name="Sumaaaaa" class="sumToReturn"  placeholder="Сумма" required="required">
-					<input type="submit" value="Повернув мені">
+					<input  name="Sumaaaaa" type="number" autofocus class="sumToReturn" placeholder="Сумма" required="required">
+					<input type="submit" value="Повернув мені" class="btnrtrn">
 				</form>
 			</div>
 			<div class="ListToPay">
-				<span class="PayUser">Кому я винен</span><span class="PayAmount">Сумма</span>
+				<div><span>Кому я винен</span><span>Сумма</span></div>
 				<c:forEach items="${usersTransactionsINeedPay }" var="INeedToPay" >
 	  				<div>
-	  					<span class="PayUser">${INeedToPay.getToUser()}</span><span class="PayAmount">${INeedToPay.getAmount()} грн</span>    
+	  					<span>${INeedToPay.getToUser()}</span><span>${INeedToPay.getAmount()} грн</span>    
 	  				</div>	
 	  			</c:forEach>
 			</div>
 			<div class="ListToPay">
-				<span>Хто мені винен</span><span class="PayAmount">Сумма</span>
+				<div><span>Хто мені винен</span><span>Сумма</span></div>
 				<c:forEach items="${usersTransactionsToPayMe }" var="usersTransaction" >
 	  				<div>
 	  					<span class="PayUser">${usersTransaction.getToUser()}</span><span class="PayAmount">${usersTransaction.getAmount()} грн</span>  

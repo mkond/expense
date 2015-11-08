@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href=<%=request.getContextPath()+"/resources/css/newexpense.css" %> rel="stylesheet">
 <title>New expense</title>
 <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
 <script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>

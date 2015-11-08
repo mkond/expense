@@ -1,13 +1,33 @@
+body{
+	
+  background: -webkit-linear-gradient(90deg, #F1F2B5 10%, #135058 90%); /* Chrome 10+, Saf5.1+ */
+  background:    -moz-linear-gradient(90deg, #F1F2B5 10%, #135058 90%); /* FF3.6+ */
+  background:     -ms-linear-gradient(90deg, #F1F2B5 10%, #135058 90%); /* IE10 */
+  background:      -o-linear-gradient(90deg, #F1F2B5 10%, #135058 90%); /* Opera 11.10+ */
+  background:         linear-gradient(90deg, #F1F2B5 10%, #135058 90%); /* W3C */
+        
+}
+
 .ExpenseList{
-	border: 1px solid black;
+ 	border: 3px solid black;
+
 	width: 800px;
 	float: left;
+	background-color: rgba(255, 255, 255, 0.3);
+	font-family: 'Lato', sans-serif;
+
+
+}
+.ExpenseList div:HOVER{
+	background-color: rgba(255, 255, 255, 0.7);
 }
 
 .MoneyExpenseList{
-	border: 1px solid black;
+	border: 3px solid black;
 	width: 300px;
 	float: right;
+		background-color: rgba(255, 255, 255, 0.3);
+	font-family: 'Lato', sans-serif;
 }
 
 .ExpenseList span{
@@ -20,6 +40,7 @@
 .ExpenseList span:FIRST-CHILD{
 	display: inline-block;
   	width: 100px;
+  	
 }
 .ExpenseList span:nth-child(2) {
 	width: 65px;
@@ -36,11 +57,22 @@
 }
 
 .ExpenseList div{
-	border: 1px solid black;
+	border-bottom: 1px solid black;
+	font-size: 16px;
+}
+.ExpenseList div:FIRST-CHILD{
+	border-bottom: 2px solid black;
+	background-color: rgba(255, 255, 255, 0.7);
+}
+.ExpenseList div:last-child{
+	border-bottom: none;
 }
 
 .MoneyExpenseList div{
-	border: 1px solid black;
+	border-bottom: 1px solid black;
+}
+.MoneyExpenseList div:last-child{
+	border-bottom: none;
 }
 
 .MoneyExpenseList span{
@@ -51,5 +83,43 @@
 }
 
 .sumToReturn{
-	width: 50px;
+	width: 60px;
+	    height: 24px;
+	    background-color: rgb(255, 255, 255);
+    color: black;
 }
+.menu{
+	margin-bottom: 15px;
+}
+.menu a{
+	display: inline-block;
+	text-decoration: none;
+	margin-right: 5px;
+	    font-family: 'Lato', sans-serif;
+	    color: gray;
+
+	    font-size: 22px;
+	    border
+
+}
+
+.menu a:HOVER{
+	color: black;
+}
+
+
+.menu a:last-child{
+/* 	float: none; */
+
+}
+.MoneyReturn{
+	height: 50px;
+		margin: 5px;
+}
+.returnUser{
+	height: 30px;
+}
+.btnrtrn{
+	height: 30px;
+}
+
