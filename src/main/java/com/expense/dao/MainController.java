@@ -174,8 +174,6 @@ public class MainController {
 	
 	@RequestMapping(value="/user/moneyreturn", method=RequestMethod.POST)
 	public String moneyReturn(@RequestParam("returnUser") int FromID, @RequestParam("Sumaaaaa") int sum){
-		System.out.println("money return");
-		System.out.println("userID -"+FromID+", sum="+sum);
 		UserDetails userDetails =
 				 (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String user = userDetails.getUsername();	
