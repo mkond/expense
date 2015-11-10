@@ -1,40 +1,49 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page session="false" %>
-<html>
-<head>
-	<title>Login</title>
-<%-- 	<link href="<c:url value="/resources/css/login.css" />" rel="stylesheet"> --%>
-	<link href=<%=request.getContextPath()+"/resources/css/login.css" %> rel="stylesheet">
-	<link href='https://fonts.googleapis.com/css?family=Lato:100italic,300' rel='stylesheet' type='text/css'>
-<script type="text/javascript"> 
-function deleteMsg(){
-	var el = document.getElementById('errorUP');
-	if(el!==''){
-		el.parentNode.removeChild(el);
-	}
-	
-}
-</script>
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Welcome to Expense | Sign In</title>
 
-</head>
+    <!-- Bootstrap -->
+    <link href=<%=request.getContextPath()+"/resources/css/bootstrap.css" %> rel="stylesheet">
+	<link href=<%=request.getContextPath()+"/resources/css/login.css" %> rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
 <body>
 
 
-	<form action="<%=request.getContextPath()%>/j_spring_security_check" method="POST" name="form_login" class="form_login">
-		<span id="errorUP">
-			<c:if test="${not empty error}" >
-				<c:out value="${error}"/>
-			</c:if>
-		</span><br>
-		<input type="text" name="user_login" placeholder="login" required="required" onkeydown="deleteMsg()"/><br/>
-		<input type="password" name="password_login"placeholder="password" required="required" onkeydown="deleteMsg()"/><br/>
-		<input type="submit" name="submit" value="Sign in"/><br/>
+	
+	<div id="fullscreen_bg" class="fullscreen_bg"/>
+
+<div class="container">
+
+	<form class="form-signin" action="<%=request.getContextPath()%>/j_spring_security_check" method="POST">
+		<h1 class="form-signin-heading text-muted">Sign In</h1>
+		<input type="text" class="form-control" placeholder="user" name="user_login" required="" autofocus="">
+		<input type="password" class="form-control" placeholder="password" name="password_login" required="">
+		<input type="submit" class="btn btn-lg btn-primary btn-block"  name="submit"></input>
 	</form>
+
+</div>
+
 	
 	
 
-
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src=<%=request.getContextPath()+"/resources/js/bootstrap.js" %>></script>
 </body>
 
 </html>
