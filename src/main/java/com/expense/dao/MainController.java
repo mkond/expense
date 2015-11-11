@@ -33,7 +33,7 @@ import com.expense.daoimpl.TransactionDAOImpl;
 import com.expense.objects.ExpCategory;
 import com.expense.objects.Expense;
 import com.expense.objects.ExpenseUser;
-
+import com.expense.objects.SendMail;
 import com.expense.objects.UsersTransaction;
 
 
@@ -60,7 +60,9 @@ public class MainController {
 	@Autowired
 	private TransactionDAOImpl transactionDAOImpl;
 	
-
+	@Autowired
+	private SendMail sendMail;
+	
 	
 	
 	@RequestMapping(value = {"/", "/login"}, method = RequestMethod.GET)
@@ -75,7 +77,7 @@ public class MainController {
 		
 		model.setViewName(LOGINPAGE);
 		
-
+//		sendMailExample.sendMail("kakaha009@gmail.com", "yakosharkoff@gmail.com", "test", "тест українською");
 
 
 		return model;
@@ -92,6 +94,7 @@ public class MainController {
 		List<UsersTransaction> usersTransactionsToPayMe = transactionDAOImpl.getUserListWhoNeedToPayMe(user);	
 		List<UsersTransaction> usersTransactionsINeedPay = transactionDAOImpl.getUsersListWhomINeedToPay(user);
 		List<ExpenseUser> expenseUserListWithoutThis = expenseUserDAOImpl.getExpenseUserListWithoutThisUser(userDetails);
+		List<ExpCategory> expCategotyList = expCategoryDAOImpl.getExpCategoryList();
 		
 		
 		ModelAndView model = new ModelAndView(USERPAGE);
@@ -99,6 +102,7 @@ public class MainController {
 		model.addObject("usersTransactionsINeedPay" ,usersTransactionsINeedPay);	
 		model.addObject("expenselist", list);
 		model.addObject("expenseUserListWithoutThis", expenseUserListWithoutThis);
+		model.addObject("expCategotyList",expCategotyList);
 		return model;
 	}
 	

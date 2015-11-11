@@ -9,6 +9,7 @@
 <link href=<%=request.getContextPath()+"/resources/css/user.css" %> rel="stylesheet">
     <link href=<%=request.getContextPath()+"/resources/css/bootstrap.css" %> rel="stylesheet">
 <link href='https://fonts.googleapis.com/css?family=Lato:100italic,300' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
 <title>user page</title>
 
 </head>
@@ -28,7 +29,6 @@
                     <div class="collapse navbar-collapse" id="responsive-menu">
                         <ul class="nav navbar-nav">
                             <li><a href="<%=request.getContextPath()%>/user">Головна</a></li>
-                            <li><a href="<%=request.getContextPath()%>/user/addexpense">Нові витрати</a></li>
                             <li><a href="j_spring_security_logout">Вихід</a></li>
                         </ul>
                     </div>
@@ -63,8 +63,11 @@
                 </table>
             </div>
             <div class="col-lg-offset-1 col-lg-4  col-md-4 col-sm-4 col-xs-4 ">
+            	<div class="row">
+                  <button class="btn btn-lg btn-primary btn-block" data-toggle="modal" data-target="#modal-2" style="margin-bottom: 20px">Нові витрати</button>
+                </div>
                 <div class="row">
-                  <button class="btn btn-lg btn-info btn-block" data-toggle="modal" data-target="#modal-1" style="margin-bottom: 20px";>Поверння</button>
+                  <button class="btn btn-lg btn-info btn-block" data-toggle="modal" data-target="#modal-1" style="margin-bottom: 20px">Поверння</button>
                 </div>
                <div class="row">                    
                     <table class="table table-bordered op">
@@ -120,7 +123,6 @@
                     <h4 class="modal-title">Повернення фінансів</h4>
                 </div>
                 <div class="modal-body">
-                    <p>Модальне вікно</p>
                     <div class="MoneyReturn">
 						<form method="POST" action="<%=request.getContextPath()%>/user/moneyreturn">
 					
@@ -132,9 +134,63 @@
 						</select>
 					
 					<input  name="Sumaaaaa" type="number" autofocus class="sumToReturn" placeholder="Сумма" required="required">
-					<input type="submit" value="Повернув мені" class="btnrtrn">
+					<input type="submit" value="Повернув мені" class="btn btn-success">
 				</form>
 			</div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-danger" type="button" data-dismiss="modal">Отмена</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- modal 2 -->
+   	<div class="modal fade" id="modal-2">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                   <button class="close"type="button" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Новий платіж</h4>
+                </div>
+                <div class="modal-body">
+						<form action="<%=request.getContextPath()%>/user/addexpense/add" method="POST">
+							<table class="table">
+								<tbody>
+									<tr>
+										<th>Категорія</th>
+										<th>
+											<select  name="category" required="required" required aria-required="true">
+											    <option selected="selected"  disabled></option>
+											    	<c:forEach items="${expCategotyList }" var="category" >
+														<option  value="${category.getId()}">${category.getName()}</option>
+													</c:forEach>
+											</select>
+										</th>
+									</tr>
+									<tr>
+										<th>Хто скідується</th>
+										<th>
+											<c:forEach items="${expenseUserListWithoutThis }" var="userList" >
+												<input type="checkbox" name="userId" value="${userList.getId()}"> ${userList.getFirstname()}<br>
+											</c:forEach>
+										</th>
+									</tr>
+									<tr>
+										<th>Сумма</th>
+										<th><input name="sumExp" autofocus type="number" required="required"></th>
+									</tr>
+									<tr>
+										<th>Дата</th>
+										<th><input type="text" id="datepicker" name="date" required="required"></th>
+									</tr>
+									<tr>
+										<th>Опис</th>
+										<th><input type="text" name="title" required="required"></th>
+									</tr>
+								</tbody>
+							</table>
+							<input class="btn btn-success btn-lg " type="submit" value="Записати"/>
+						</form>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-danger" type="button" data-dismiss="modal">Отмена</button>
@@ -148,5 +204,14 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src=<%=request.getContextPath()+"/resources/js/bootstrap.js" %>></script>
+    
+    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+<script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+
+  <script>
+  $(function() {
+    $( "#datepicker" ).datepicker();
+  });
+  </script>
 </body>
 </html>
