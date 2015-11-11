@@ -12,6 +12,7 @@
 		<org.springframework.security-version>3.2.5.RELEASE</org.springframework.security-version>
 		<org.aspectj-version>1.8.0</org.aspectj-version>
 		<org.slf4j-version>1.7.7</org.slf4j-version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	<dependencies>
 		<!-- Spring -->
