@@ -1,4 +1,4 @@
-package com.expense.daoimpl;
+package com.expense.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

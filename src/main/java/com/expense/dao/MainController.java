@@ -27,7 +27,6 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.expense.daoimpl.ExpCategoryDAOImpl;
-import com.expense.daoimpl.ExpenseDAOImpl;
 import com.expense.daoimpl.ExpenseUserDAOImpl;
 import com.expense.daoimpl.TransactionDAOImpl;
 
