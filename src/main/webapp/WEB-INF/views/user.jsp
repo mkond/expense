@@ -13,7 +13,7 @@
 
 </head>
 <body>
-	<div id="fullscreen_bg" class="fullscreen_bg"/>
+
 	          <div class="navbar navbar-inverse navbar-static-top">
                 <div class="container">
                     <div class="navbar-header">
@@ -23,7 +23,7 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a href="#" class="navbar-brand">Логотип</a>
+                        <a href="#" class="navbar-brand"><i>#expense</i></a>
                     </div>
                     <div class="collapse navbar-collapse" id="responsive-menu">
                         <ul class="nav navbar-nav">

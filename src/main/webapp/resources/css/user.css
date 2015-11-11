@@ -1,18 +1,12 @@
-.fullscreen_bg {
-	
+  body {
 
-  
-  /*     position: fixed; */
-   background-attachment: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background-size: cover;
-    background-position: 50% 50%;
-    background-image: url('http://cleancanvas.herokuapp.com/img/backgrounds/color-splash.jpg');
-    background-repeat:repeat;
-        
+  background: -webkit-linear-gradient(90deg, #F1F2B5 10%, #135058 90%); 
+  background:    -moz-linear-gradient(90deg, #F1F2B5 10%, #135058 90%); 
+  background:     -ms-linear-gradient(90deg, #F1F2B5 10%, #135058 90%); 
+  background:      -o-linear-gradient(90deg, #F1F2B5 10%, #135058 90%); 
+  background:         linear-gradient(90deg, #F1F2B5 10%, #135058 90%); 
+
+	
 }
 .op{
  	background-color: rgba(255, 255, 255, 0.3); 

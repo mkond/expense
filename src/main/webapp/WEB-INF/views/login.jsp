@@ -24,17 +24,17 @@
 
 
 	
-	<div id="fullscreen_bg" class="fullscreen_bg"/>
 
-<div class="container">
 
-	<form class="form-signin" action="<%=request.getContextPath()%>/j_spring_security_check" method="POST">
-		<h1 class="form-signin-heading text-muted">Sign In</h1>
-		<input type="text" class="form-control" placeholder="user" name="user_login" required="" autofocus="">
-		<input type="password" class="form-control" placeholder="password" name="password_login" required="">
-		<input type="submit" class="btn btn-lg btn-primary btn-block"  name="submit"></input>
-	</form>
-
+<div class="container col-lg-offset-5 col-lg-2 col-md-offset-5 col-md-3 col-sm-offset-4 col-sm-4 col-xs-offset-4 col-xs-5">
+	<div class="row">	
+		<form class="form-signin" action="<%=request.getContextPath()%>/j_spring_security_check" method="POST">
+			<h1 class="form-signin-heading text-muted">Sign In</h1>
+			<input type="text" class="form-control" placeholder="user" name="user_login" required="" autofocus="">
+			<input type="password" class="form-control" placeholder="password" name="password_login" required="">
+			<input type="submit" class="btn btn-lg btn-primary btn-block"  name="submit"></input>
+		</form>
+	</div>
 </div>
 
 	
