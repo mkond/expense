@@ -77,7 +77,6 @@ public class MainController {
 		
 		model.setViewName(LOGINPAGE);
 		
-//		sendMailExample.sendMail("kakaha009@gmail.com", "yakosharkoff@gmail.com", "test", "тест українською");
 
 
 		return model;
