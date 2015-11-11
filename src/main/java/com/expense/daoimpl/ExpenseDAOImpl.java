@@ -1,4 +1,4 @@
-package com.expense.dao;
+package com.expense.daoimpl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -92,9 +92,4 @@ public class ExpenseDAOImpl implements ExpenseDAO {
 		}
 		
 	}
-
-
-
-
-
 }

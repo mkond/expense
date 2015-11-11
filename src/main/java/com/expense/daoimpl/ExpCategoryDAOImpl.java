@@ -22,9 +22,7 @@ public class ExpCategoryDAOImpl implements ExpCategoryDAO {
 	@Autowired
 	public void setDataSource(DataSource dataSource){
 		this.jdbcTempl = new NamedParameterJdbcTemplate(dataSource);
-		this.dataSource = dataSource;
-		
-		
+		this.dataSource = dataSource;		
 	}
 
 	@Override

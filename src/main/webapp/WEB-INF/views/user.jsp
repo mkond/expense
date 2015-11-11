@@ -10,8 +10,7 @@
     <link href=<%=request.getContextPath()+"/resources/css/bootstrap.css" %> rel="stylesheet">
 <link href='https://fonts.googleapis.com/css?family=Lato:100italic,300' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
-<title>user page</title>
-
+<title>Expense list</title>
 </head>
 <body>
 
@@ -133,7 +132,7 @@
 				    		</c:forEach>				    		
 						</select>
 					
-					<input  name="Sumaaaaa" type="number" autofocus class="sumToReturn" placeholder="Сумма" required="required">
+					<input id="inputSum" name="Sumaaaaa" type="number" autofocus class="sumToReturn" placeholder="Сумма" required="required">
 					<input type="submit" value="Повернув мені" class="btn btn-success">
 				</form>
 			</div>
@@ -177,7 +176,7 @@
 									</tr>
 									<tr>
 										<th>Сумма</th>
-										<th><input name="sumExp" autofocus type="number" required="required"></th>
+										<th><input id="inputSum" name="sumExp" autofocus type="number" required="required" pattern="[0-9]{3}"></th>
 									</tr>
 									<tr>
 										<th>Дата</th>
@@ -206,7 +205,7 @@
     <script src=<%=request.getContextPath()+"/resources/js/bootstrap.js" %>></script>
     
     <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
-<script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+	<script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
 
   <script>
   $(function() {

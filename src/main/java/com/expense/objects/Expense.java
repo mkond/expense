@@ -2,11 +2,14 @@ package com.expense.objects;
 
 import java.util.Date;
 
+import javax.validation.constraints.Size;
+
 public class Expense {
 	
 	private int id;
 	private ExpCategory expCategory;
 	private ExpenseUser expenseUser;
+	@Size(max=4)
 	private int amount;
 	private Date date;
 	private String title;

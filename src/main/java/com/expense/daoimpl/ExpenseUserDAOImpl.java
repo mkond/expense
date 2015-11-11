@@ -61,9 +61,7 @@ public class ExpenseUserDAOImpl implements ExpenseUserDAO {
 			param.addValue("id", id);
 		return jdbcTempl.queryForObject(sql, param, new ExpenseUserRowMaper());
 	}
-	
-	
-	
+		
 	private static final class ExpenseUserRowMaper implements RowMapper<ExpenseUser>{
 
 		@Override
@@ -75,12 +73,6 @@ public class ExpenseUserDAOImpl implements ExpenseUserDAO {
 			user.setFirstname(rs.getString("firstName"));
 			user.setLastname(rs.getString("lastName"));
 			return user;
-		}
-
-
-		
+		}	
 	}
-
-	
-
 }
