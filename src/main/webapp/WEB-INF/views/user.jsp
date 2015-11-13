@@ -11,6 +11,8 @@
 <link href='https://fonts.googleapis.com/css?family=Lato:100italic,300' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
 <title>Expense list</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
 </head>
 <body>
 
@@ -169,9 +171,11 @@
 									<tr>
 										<th>Хто скідується</th>
 										<th>
-											<c:forEach items="${expenseUserListWithoutThis }" var="userList" >
-												<input type="checkbox" name="userId" value="${userList.getId()}"> ${userList.getFirstname()}<br>
-											</c:forEach>
+											<div class="checkbox-group required" id='test1'>
+												<c:forEach items="${expenseUserListWithoutThis }" var="userList" >
+													<input type="checkbox" name="userId" value="${userList.getId()}"> ${userList.getFirstname()}<br>
+												</c:forEach>
+											</div>
 										</th>
 									</tr>
 									<tr>
