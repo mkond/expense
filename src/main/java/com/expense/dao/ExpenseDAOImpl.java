@@ -42,7 +42,7 @@ public class ExpenseDAOImpl implements ExpenseDAO {
 					" FROM expenselist as E"+
 					" left join ExpUser as EU on E.WhoSpentId=EU.id"+
 					" left join ExpCategory as EC on E.expCategoryId = EC.id"
-					+ " order by DateSpent desc";
+					+ " order by id desc";
 		return jdbcTempl.query(sql, new ExpenseRowMaper());
 	}
 	

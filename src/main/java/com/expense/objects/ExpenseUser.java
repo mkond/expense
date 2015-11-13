@@ -43,4 +43,8 @@ public class ExpenseUser {
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
 	}
+	
+	public String getFullName(){
+		return this.firstname+" "+this.lastname;
+	}
 }

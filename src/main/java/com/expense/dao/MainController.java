@@ -5,6 +5,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,11 +32,15 @@ import com.expense.daoimpl.ExpCategoryDAOImpl;
 import com.expense.daoimpl.ExpenseUserDAOImpl;
 import com.expense.daoimpl.TransactionDAOImpl;
 
+
 import com.expense.objects.ExpCategory;
 import com.expense.objects.Expense;
 import com.expense.objects.ExpenseUser;
 import com.expense.objects.SendMail;
 import com.expense.objects.UsersTransaction;
+import static com.expense.objects.Service.getSumForEach;
+import static com.expense.objects.Service.reformatDate;
+
 
 
 
@@ -111,21 +117,7 @@ public class MainController {
 		return model;
 	}
 	
-	@RequestMapping(value="/user/addexpense", method=RequestMethod.GET)
-	public ModelAndView addNewExpense(){
-		ModelAndView model = new ModelAndView();
-		List<ExpCategory> expCategotyList = expCategoryDAOImpl.getExpCategoryList();
-		model.addObject("expCategotyList",expCategotyList);
-		model.setViewName(NEWEXPENSEPAGE);
-		
-		UserDetails userDetails =
-				 (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		List<ExpenseUser> expenseUserListWithoutThis = expenseUserDAOImpl.getExpenseUserListWithoutThisUser(userDetails);
-		model.addObject("expenseUserListWithoutThis", expenseUserListWithoutThis);
-		
-		
-		return model;
-	}
+
 	
 	@RequestMapping(value="/user/addexpense/add", method=RequestMethod.POST)
 	public String addExpense(		HttpServletRequest request,  
@@ -139,42 +131,36 @@ public class MainController {
 		int sumToPay = 0;
 		int countUsersToPay = checkedUserIds.length+1;
 		String listUsersForTitle = "";
+		final List<String> userEmails = null;
+
 		
 		
 		UserDetails userDetails =
 				 (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String user = userDetails.getUsername();	
 		int userID = expenseUserDAOImpl.getUserId(user);
-		
-		String[] parts = date.split("/");
-		String dateToDB = String.format("%s-%s-%s", parts[2],parts[0],parts[1]);
 
-		
-		
-		if(sum % countUsersToPay ==0){
-			sumToPay=sum/countUsersToPay;
-		}else{
-			sumToPay=(sum+(countUsersToPay-1))/countUsersToPay;
-		}
+		String dateToDB = reformatDate(date);
+		sumToPay = getSumForEach(sum, countUsersToPay);
 		
 		for(int i=0;i<checkedUserIds.length;i++){
 			transactionDAOImpl.insertTransaction(userID, Integer.parseInt(checkedUserIds[i]), sumToPay);
 			ExpenseUser expUser = expenseUserDAOImpl.getUserById(Integer.parseInt(checkedUserIds[i]));
+			sendMail.sendMail("kakaha009@gmail.com", expUser.getEmail(), ":expense:", "--Оплата--\nОплачено: "+expenseUserDAOImpl.getUserById(userID).getFullName()+"\nСума: "+sum+"\nДата: "+dateToDB+"\nОпис покупки: "+title);
+			
 			if(i==0){
-				listUsersForTitle = String.format("%s %s,",expUser.getFirstname(), expUser.getLastname());
+				listUsersForTitle = String.format("%s %s",expUser.getFirstname(), expUser.getLastname());
 				continue;
 			}
 			if(i==checkedUserIds.length-1)
 				listUsersForTitle = String.format("%s %s %s", listUsersForTitle, expUser.getFirstname(), expUser.getLastname());
-			else
-				listUsersForTitle = String.format("%s %s %s,", listUsersForTitle,expUser.getFirstname(), expUser.getLastname());
-				
+			else{
+				listUsersForTitle = String.format("%s %s %s", listUsersForTitle,expUser.getFirstname(), expUser.getLastname());
+			}
+			
 		}	
-		title = String.format("%s | %s", listUsersForTitle, title);
-		System.out.println("title - "+title);
-		
-		expenseDAOImpl.insertExpenseToExpenseList(categoryId, userID, sum, dateToDB, title);		
-		
+		title = String.format("%s | %s", listUsersForTitle, title);	
+		expenseDAOImpl.insertExpenseToExpenseList(categoryId, userID, sum, dateToDB, title);
 		return "redirect:/user";
 	}
 	
