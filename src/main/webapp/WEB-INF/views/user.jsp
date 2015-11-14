@@ -154,7 +154,7 @@
                     <h4 class="modal-title">Новий платіж</h4>
                 </div>
                 <div class="modal-body">
-						<form action="<%=request.getContextPath()%>/user/addexpense/add" method="POST">
+						<form action="<%=request.getContextPath()%>/user/addexpense/add" method="POST" onsubmit="return validateFrom()">
 							<table class="table">
 								<tbody>
 									<tr>
@@ -215,6 +215,15 @@
   $(function() {
     $( "#datepicker" ).datepicker();
   });
+  </script>
+  <script type="text/javascript">
+  function validateFrom() {
+	  var result = $("div.checkbox-group.required input:checked").length > 0;
+	  if(!result) {
+		  console.log('fill checkboxes')
+		  }
+	  return result;
+	  }
   </script>
 </body>
 </html>
