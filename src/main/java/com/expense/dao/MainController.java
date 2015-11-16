@@ -66,8 +66,7 @@ public class MainController {
 	@Autowired
 	private TransactionDAOImpl transactionDAOImpl;
 	
-	@Autowired
-	private SendMail sendMail;
+
 	
 	
 	
@@ -146,7 +145,6 @@ public class MainController {
 		for(int i=0;i<checkedUserIds.length;i++){
 			transactionDAOImpl.insertTransaction(userID, Integer.parseInt(checkedUserIds[i]), sumToPay);
 			ExpenseUser expUser = expenseUserDAOImpl.getUserById(Integer.parseInt(checkedUserIds[i]));
-			sendMail.sendMail("kakaha009@gmail.com", expUser.getEmail(), ":expense:", "--Оплата--\nОплачено: "+expenseUserDAOImpl.getUserById(userID).getFullName()+"\nСума: "+sum+"\nДата: "+dateToDB+"\nОпис покупки: "+title);
 			
 			if(i==0){
 				listUsersForTitle = String.format("%s %s",expUser.getFirstname(), expUser.getLastname());
