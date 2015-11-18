@@ -63,7 +63,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="col-lg-offset-1 col-lg-4  col-md-4 col-sm-4 col-xs-4 ">
+            <div class="col-lg-offset-1 col-sm-offset-1 col-lg-4  col-md-4 col-sm-4 col-xs-4 ">
             	<div class="row">
                   <button class="btn btn-lg btn-primary btn-block" data-toggle="modal" data-target="#modal-2" style="margin-bottom: 20px">Нові витрати</button>
                 </div>

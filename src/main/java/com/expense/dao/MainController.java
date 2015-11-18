@@ -127,6 +127,12 @@ public class MainController {
 										@RequestParam("title") String title){
 		
 
+		if(sum<0){
+			System.out.println(sum+"=sum");
+			return "redirect:/user";
+		}
+		
+		
 		int sumToPay = 0;
 		int countUsersToPay = checkedUserIds.length+1;
 		String listUsersForTitle = "";
@@ -164,6 +170,10 @@ public class MainController {
 	
 	@RequestMapping(value="/user/moneyreturn", method=RequestMethod.POST)
 	public String moneyReturn(@RequestParam("returnUser") int FromID, @RequestParam("Sumaaaaa") int sum){
+		if(sum<0){
+			return "redirect:/user";
+		}
+		
 		UserDetails userDetails =
 				 (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String user = userDetails.getUsername();	

@@ -23,14 +23,17 @@
 		<remember-me remember-me-parameter="main_remember_me"/>
 	</http>
 
-<authentication-manager>
-	<authentication-provider>
-<!-- 		<user-service> -->
-<!-- 			<user name="admin" password="admin11" authorities="ROLE_ADMIN"/> -->
-<!-- 			<user name="user" password="user11" authorities="ROLE_USER"/> -->
-<!-- 		</user-service> -->
-		<jdbc-user-service data-source-ref="dataSource"/>
-	</authentication-provider>
-</authentication-manager>
+	<authentication-manager>
+		<authentication-provider>
+	<!-- 		<user-service> -->
+	<!-- 			<user name="admin" password="admin11" authorities="ROLE_ADMIN"/> -->
+	<!-- 			<user name="user" password="user11" authorities="ROLE_USER"/> -->
+	<!-- 		</user-service> -->
+			<password-encoder ref="bcrypt"/>
+			<jdbc-user-service data-source-ref="dataSource"/>
+		</authentication-provider>
+	</authentication-manager>
+
+
 
 </beans:bean>
